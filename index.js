@@ -18,6 +18,6 @@ app.get('/', function(req, res){
 app.get('/users', db.getUsers)
 
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
   console.log(`App running on port 3000.`)
 })
