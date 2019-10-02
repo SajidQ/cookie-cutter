@@ -1,11 +1,13 @@
 const Pool = require('pg').Pool
 const pool = new Pool({
-  user: 'rupxzqqpwigzck',
-  host: 'ec2-174-129-227-80.compute-1.amazonaws.com',
-  database: 'd2l9sndnefeuim',
-  password: 'ab588742973de36e8601fba9e51ce6f81d82a103f39af422c41b446484d8c4c0',
-  port: 5432,
+  user: process.env.DATABASE_USERNAME,
+  host: process.env.DATABASE_HOSTNAME,
+  database: process.env.DATABASE_NAME,
+  password: process.env.DATABASE_PASSWORD,
+  port: process.env.DATABASE_PORT,
 })
+
+console.log({username: process.env.DATABASE_USERNAME})
 
 
 const getUsers = (request, response) => {
