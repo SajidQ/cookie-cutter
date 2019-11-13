@@ -7,8 +7,6 @@ const pool = new Pool({
   port: process.env.DATABASE_PORT,
 })
 
-console.log({username: process.env.DATABASE_USERNAME})
-
 
 const getUsers = (request, response) => {
   pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {

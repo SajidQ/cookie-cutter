@@ -1,25 +1,65 @@
-require('dotenv').config()
-var express = require("express")
-var bodyParser = require("body-parser")
-var db = require('./queries')
+import 'dotenv/config';
+import express from 'express'
+import bodyParser from "body-parser"
+import db from './queries'
+import { ApolloServer, gql } from 'apollo-server-express'
+import { makeExecutableSchema } from 'graphql-tools'
 
 
-var app = express()
+const books = [
+  {
+    title: "Harry Potter and the Sorcerer's stone",
+    author: 'J.K. Rowling',
+  },
+  {
+    title: 'Jurassic Park',
+    author: 'Michael Crichton',
+  },
+];
 
-app.use(bodyParser.json())
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-)
+const typeDefs = gql`
+  # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
 
-app.get('/', function(req, res){
-	res.send('home')
-})
+  # This "Book" type defines the queryable fields for every book in our data source.
+  type Book {
+    title: String
+    author: String
+  }
 
-app.get('/users', db.getUsers)
+  # The "Query" type is special: it lists all of the available queries that
+  # clients can execute, along with the return type for each. In this
+  # case, the "books" query returns an array of zero or more Books (defined above).
+  type Query {
+    books: [Book]
+  }
+`;
 
+// The resolvers
+const resolvers = {
+  Query: { books: () => books },
+};
 
-app.listen(process.env.PORT, () => {
-  console.log(`App running on port 3000.`)
+// Put together a schema
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+});
+
+// Initialize the app
+const app = express();
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  playground: {
+  settings: {
+    'editor.theme': 'dark',
+  },
+},
+});
+
+server.applyMiddleware({ app });
+
+app.listen({port: process.env.PORT}, () => {
+  console.log(`App running on port http://localhost:${process.env.PORT}${server.graphqlPath}.`)
 })
