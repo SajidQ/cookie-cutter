@@ -1,9 +1,9 @@
 import 'dotenv/config';
-import express from 'express'
 import bodyParser from "body-parser"
 import db from './queries'
-import { ApolloServer, gql } from 'apollo-server-express'
+import { ApolloServer, gql } from 'apollo-server'
 import { makeExecutableSchema } from 'graphql-tools'
+import models, {sequelize} from './models'
 
 
 const books = [
@@ -45,8 +45,6 @@ const schema = makeExecutableSchema({
   resolvers,
 });
 
-// Initialize the app
-const app = express();
 
 const server = new ApolloServer({
   typeDefs,
@@ -58,8 +56,9 @@ const server = new ApolloServer({
 },
 });
 
-server.applyMiddleware({ app });
 
-app.listen({port: process.env.PORT}, () => {
-  console.log(`App running on port http://localhost:${process.env.PORT}${server.graphqlPath}.`)
-})
+
+	server.listen({port: process.env.PORT}, () => {
+	  console.log(`App running on port http://localhost:${process.env.PORT}${server.graphqlPath}.`)
+	})
+
