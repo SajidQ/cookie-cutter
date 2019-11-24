@@ -6,7 +6,7 @@ module.exports = {
     "password": process.env.DATABASE_PASSWORD,
     "database": process.env.DATABASE_NAME,
     "port": process.env.DATABASE_PORT,
-    "host": process.env.DATABASE_HOST,
+    "host": process.env.DATABASE_HOSTNAME,
     "dialect": "postgres",
     "operatorsAliases": false
   },
@@ -15,7 +15,7 @@ module.exports = {
     "password": process.env.DATABASE_PASSWORD,
     "database": process.env.DATABASE_NAME,
     "port": process.env.DATABASE_PORT,
-    "host": process.env.DATABASE_HOST,
+    "host": process.env.DATABASE_HOSTNAME,
     "dialect": "postgres",
     "operatorsAliases": false
   }
