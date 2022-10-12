@@ -14,7 +14,7 @@
     "@babel/core": "^7.7.2",
     "@babel/node": "^7.7.0",
     "@babel/preset-env": "^7.7.1",
-    "apollo-server": "^2.9.9",
+    "apollo-server": "^2.25.4",
     "body-parser": "^1.19.0",
     "db-migrate": "^0.11.6",
     "db-migrate-pg": "^1.0.0",
